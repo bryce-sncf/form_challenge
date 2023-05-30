@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
 import { User } from './user';
 
 @Component({
@@ -8,12 +7,13 @@ import { User } from './user';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
-  @ViewChild('signupForm') signupForm!: NgForm;
   user: User = new User();
 
+  constructor() { } 
+
   onSubmit() {
-    if (this.signupForm.valid) {
+    
       console.log(this.user);
-    }
+    
   }
 }
