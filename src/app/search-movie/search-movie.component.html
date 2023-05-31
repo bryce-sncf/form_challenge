@@ -1,0 +1,41 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <div formGroupName="identifiers">
+    <label>Identifiant:</label>
+    <input type="text" formControlName="id" />
+    <label>Titre:</label>
+    <input type="text" formControlName="title" />
+    <div
+      *ngIf="
+        isFormSubmitted && searchForm.get('identifiers')?.hasError('isRequired')
+      "
+    >
+      L'un des deux champs 'Identifiant' ou 'Titre' doit être renseigné.
+    </div>
+  </div>
+
+  <label>Type:</label>
+  <select formControlName="type">
+    <option value="film">Film</option>
+    <option value="series">Série</option>
+    <option value="episode">Épisode</option>
+  </select>
+
+  <label>Année de sortie:</label>
+  <input type="number" formControlName="releaseYear" />
+  <div
+    *ngIf="isFormSubmitted && searchForm.get('releaseYear')?.errors?.['min']"
+  >
+    L'année doit être comprise entre {{ minYear }} et {{ maxYear }}.
+  </div>
+
+  <label>Fiche:</label>
+  <select
+    formControlName="fiche"
+    [disabled]="!searchForm.get('identifiers.id')?.value"
+  >
+    <option value="complète">Complète</option>
+    <option value="courte">Courte</option>
+  </select>
+
+  <button type="submit">Rechercher</button>
+</form>
